@@ -1,5 +1,6 @@
 var Profile = require('../models/Profile')
 var Promise = require('bluebird')
+var bcrypt = require('bcryptjs')
 
 module.exports = {
 
@@ -58,6 +59,11 @@ module.exports = {
 	},
 
 	post: function(params, callback){
+		var password = params['password']
+		if (password != null) {
+			var hashed = bcrypt.hashSync(password, 10)
+			params['password'] = hashed
+		}
 		Profile.create(params, function(err, profile){
 			if (err){
 				if (callback != null)

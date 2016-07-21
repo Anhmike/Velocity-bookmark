@@ -1,6 +1,7 @@
 var express = require('express')
 var router = express.Router()
 var profileController = require('../controllers/ProfileController')
+var bcrypt = require('bcryptjs')
 
 router.post('/:action', function(req, res, next) {
 	var action = req.params.action
@@ -27,7 +28,8 @@ router.post('/:action', function(req, res, next) {
 			}
 
 			var user = profiles[0]
-			if (req.body.password != user.password){
+			var isPasswordCorrect =  bcrypt.compareSync(req.body.password, user.password)
+			if (isPasswordCorrect == false){
 				res.json({
 					confirmation: 'fail',
 					message: 'Wrong password'
