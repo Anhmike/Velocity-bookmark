@@ -29,6 +29,8 @@ var Register = _interopRequire(require("../../components/Register"));
 
 var EntryPreview = _interopRequire(require("../../components/EntryPreview"));
 
+var ProfilePreview = _interopRequire(require("../../components/ProfilePreview"));
+
 var Home = (function (Component) {
 	function Home(props, context) {
 		_classCallCheck(this, Home);
@@ -52,6 +54,8 @@ var Home = (function (Component) {
 				var entriesList = this.props.entries.map(function (entry, i) {
 					return React.createElement(EntryPreview, { key: entry._id, entry: entry });
 				});
+
+				var rightCol = this.props.currentUser._id == null ? React.createElement(Register, null) : React.createElement(ProfilePreview, { currentUser: this.props.currentUser });
 				return React.createElement(
 					"div",
 					null,
@@ -82,7 +86,7 @@ var Home = (function (Component) {
 								React.createElement(
 									"div",
 									{ style: { position: "fixed", right: 36 }, className: "col_one_third col_last nobottommargin" },
-									React.createElement(Register, null)
+									rightCol
 								)
 							)
 						)
@@ -100,21 +104,9 @@ var Home = (function (Component) {
 var stateToProps = function (state) {
 	return {
 		//		profiles: state.profilesReducer.profilesArray
-		entries: state.entriesReducer.entriesArray
-
+		entries: state.entriesReducer.entriesArray,
+		currentUser: state.accountReducer.currentUser
 	};
 };
 
 module.exports = connect(stateToProps)(Home);
-// if (this.props.profiles.length > 0)
-// 	return
-
-// var _this = this
-// APIManager.handleGet('/api/profile', null, function(err, response){
-// 	if (err){
-// 		alert(err)
-// 		return
-// 	}
-
-// 	store.currentStore().dispatch(actions.profilesReceived(response.results))
-// })

@@ -21,6 +21,13 @@ module.exports = {
 			type: constants.PROFILES_RECEIVED,
 			profiles: profiles
 		};
+	},
+
+	currentUserReceived: function (currentUser) {
+		return {
+			type: constants.CURRENT_USER_RECEIVED,
+			currentUser: currentUser
+		};
 	}
 
 };

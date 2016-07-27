@@ -18,6 +18,19 @@ module.exports = {
 		})
 	},
 
+	findById: function(id){
+		return new Promise(function(resolve, reject){
+
+			Profile.findById(id, function(err, profile){
+			if (err){
+				resolve(null)
+				return
+			}
+				resolve(profile)
+			})
+		})
+	},
+
 	get: function(params, isRaw, callback){
 		Profile.find(params, function(err, profiles){
 			if (err){
@@ -65,6 +78,20 @@ module.exports = {
 			params['password'] = hashed
 		}
 		Profile.create(params, function(err, profile){
+			if (err){
+				if (callback != null)
+					callback(err, null)
+
+				return
+			}
+
+			if (callback != null)
+				callback(null, profile.summary())
+		})
+	},
+
+	put: function(id, params, callback){
+		Profile.findByIdAndUpdate(id, params, {new:true}, function(err,profile){
 			if (err){
 				if (callback != null)
 					callback(err, null)

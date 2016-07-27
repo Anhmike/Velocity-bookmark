@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import Header from '../../components/Header'
 import Register from '../../components/Register'
 import EntryPreview from '../../components/EntryPreview'
+import ProfilePreview from '../../components/ProfilePreview'
 
 
 class Home extends Component {
@@ -20,18 +21,7 @@ class Home extends Component {
 
 	componentDidMount(){
 		console.log('componentDidMount: ')
-		// if (this.props.profiles.length > 0)
-		// 	return
 		
-		// var _this = this
-		// APIManager.handleGet('/api/profile', null, function(err, response){
-		// 	if (err){
-		// 		alert(err)
-		// 		return
-		// 	}
-
-		// 	store.currentStore().dispatch(actions.profilesReceived(response.results))
-		// })
 	}
 
 	render(){
@@ -41,6 +31,8 @@ class Home extends Component {
 			)
 
 		})
+
+		var rightCol = (this.props.currentUser._id == null) ? <Register /> : <ProfilePreview currentUser={this.props.currentUser} />
 		return (
 			<div>
 				<Header />
@@ -58,7 +50,7 @@ class Home extends Component {
 		                    </div>
 
 		                    <div style={{position:'fixed', right:36}} className="col_one_third col_last nobottommargin">
-		                    	<Register />
+		                    	{rightCol}
 		                    </div>
 
 
@@ -74,8 +66,8 @@ class Home extends Component {
 const stateToProps = function(state){
 	return {
 //		profiles: state.profilesReducer.profilesArray
-		entries: state.entriesReducer.entriesArray
-
+		entries: state.entriesReducer.entriesArray,
+		currentUser: state.accountReducer.currentUser
 	}
 }
 

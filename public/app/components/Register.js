@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import APIManager from '../utils/APIManager'
+import store from '../stores/store'
+import actions from '../actions/actions'
 
 class Register extends Component {
 
@@ -59,6 +61,7 @@ class Register extends Component {
 			}
 
 			console.log('POST: '+JSON.stringify(response))
+			store.currentStore().dispatch(actions.currentUserReceived(response.user))
 		})	
 
 

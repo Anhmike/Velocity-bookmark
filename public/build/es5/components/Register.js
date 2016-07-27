@@ -17,6 +17,10 @@ var React = _interopRequire(_react);
 var Component = _react.Component;
 var APIManager = _interopRequire(require("../utils/APIManager"));
 
+var store = _interopRequire(require("../stores/store"));
+
+var actions = _interopRequire(require("../actions/actions"));
+
 var Register = (function (Component) {
 	function Register(props, context) {
 		_classCallCheck(this, Register);
@@ -84,6 +88,7 @@ var Register = (function (Component) {
 					}
 
 					console.log("POST: " + JSON.stringify(response));
+					store.currentStore().dispatch(actions.currentUserReceived(response.user));
 				});
 
 			},

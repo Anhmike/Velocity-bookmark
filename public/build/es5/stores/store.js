@@ -13,6 +13,11 @@ var entriesReducer = _interopRequire(require("../reducers/entriesReducer"));
 
 var profilesReducer = _interopRequire(require("../reducers/profilesReducer"));
 
+var accountReducer = _interopRequire(require("../reducers/accountReducer"));
+
+
+
+
 // // Combine Reducers
 // var reducers = combineReducers({
 //     entriesReducer: entriesReducer,
@@ -35,7 +40,8 @@ module.exports = {
 		// Combine Reducers
 		var reducers = combineReducers({
 			entriesReducer: entriesReducer,
-			profilesReducer: profilesReducer
+			profilesReducer: profilesReducer,
+			accountReducer: accountReducer
 		});
 
 		// Create Store

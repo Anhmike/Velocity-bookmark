@@ -12,6 +12,7 @@ var store = require('../public/build/es5/stores/store')
 var ServerApp = require('../public/build/es5/ServerApp')
 var Main = require('../public/build/es5/components/Main')
 var Home = require('../public/build/es5/components/layout/Home')
+var Account = require('../public/build/es5/components/layout/Account')
 var Entries = require('../public/build/es5/components/containers/Entries')
 
 // controllers:
@@ -74,16 +75,29 @@ matchRoutes = function(req, routes, initialStore){
 router.get('/', function(req, res, next) {
 
 	var initialStore = null
-	entryController.find(null)
+	var reducers = {}
+
+	profileController.findById(req.session.user)
+	.then(function(currentUser){
+
+		if (currentUser != null) {
+			var accountReducer = {
+				currentUser: currentUser.summary()
+			}
+		}
+
+		reducers['accountReducer'] = accountReducer
+
+		return entryController.find(null)
+	})
 	.then(function(results){
 		var entriesReducer = {
 			entries:{},
 			entriesArray: results
 		}
 
-		initialStore = store.configureStore({
-			entriesReducer: entriesReducer
-		})
+		reducers['entriesReducer'] = entriesReducer
+		initialStore = store.configureStore(reducers)
 
 		var routes = {
 			path: '/',
@@ -109,8 +123,42 @@ router.get('/', function(req, res, next) {
 
 router.get('/:page', function(req, res, next) {
 
-	var page = req.params.page
-	res.render(page, {})
+	var initialStore = null
+	var reducers = {}
+
+	profileController.findById(req.session.user)
+	.then(function(currentUser){
+
+		if (currentUser != null) {
+			var accountReducer = {
+				currentUser: currentUser.summary()
+			}
+
+			reducers['accountReducer'] = accountReducer
+		}
+
+		initialStore = store.configureStore(reducers)
+
+		var routes = {
+			path: '/'+req.params.page,
+			component: ServerApp,
+			initial: initialStore,
+			indexRoute: {
+				component: Account
+			}
+		}
+
+		return matchRoutes(req, routes, initialStore)
+
+	})
+	.then(function(renderProps){
+		var html = ReactDOMServer.renderToString(React.createElement(ReactRouter.RouterContext, renderProps))
+	    res.render('index', {react: html, preloadedState:JSON.stringify(initialStore.getState())})
+	    return
+	})
+	.catch(function(err) {
+
+	})
 
 })
 
