@@ -66,7 +66,7 @@
 	
 	var _Account2 = _interopRequireDefault(_Account);
 	
-	var _Entries = __webpack_require__(281);
+	var _Entries = __webpack_require__(282);
 	
 	var _Entries2 = _interopRequireDefault(_Entries);
 	
@@ -31097,7 +31097,7 @@
 	
 	var _reactRedux = __webpack_require__(263);
 	
-	var _reactDropzone = __webpack_require__(282);
+	var _reactDropzone = __webpack_require__(281);
 	
 	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
 	
@@ -31270,123 +31270,6 @@
 
 /***/ },
 /* 281 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _EntryPreview = __webpack_require__(278);
-	
-	var _EntryPreview2 = _interopRequireDefault(_EntryPreview);
-	
-	var _APIManager = __webpack_require__(237);
-	
-	var _APIManager2 = _interopRequireDefault(_APIManager);
-	
-	var _store = __webpack_require__(243);
-	
-	var _store2 = _interopRequireDefault(_store);
-	
-	var _actions = __webpack_require__(262);
-	
-	var _actions2 = _interopRequireDefault(_actions);
-	
-	var _reactRedux = __webpack_require__(263);
-	
-	var _Header = __webpack_require__(276);
-	
-	var _Header2 = _interopRequireDefault(_Header);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Entries = function (_Component) {
-		_inherits(Entries, _Component);
-	
-		function Entries(props, context) {
-			_classCallCheck(this, Entries);
-	
-			var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(Entries).call(this, props, context));
-	
-			_this2.state = {};
-			return _this2;
-		}
-	
-		_createClass(Entries, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				//		console.log('Component Did Mount: '+JSON.stringify(this.props.entries))
-				// if (this.props.entries.length > 0) // already there
-				// 	return
-	
-				var entryArray = this.props.entries[this.props.params.phone];
-				if (entryArray != null) {
-					// already there
-					return;
-				}
-	
-				var _this = this;
-				_APIManager2.default.handleGet('/api/entry', { phone: this.props.params.phone }, function (err, response) {
-					if (err) {
-						alert(err);
-						return;
-					}
-	
-					_store2.default.currentStore().dispatch(_actions2.default.entriesReceived(response.results));
-				});
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				var entryArray = this.props.entries[this.props.params.phone];
-				var entryList = null;
-				if (entryArray != null) {
-					entryList = entryArray.map(function (entry, i) {
-						return _react2.default.createElement(_EntryPreview2.default, { key: entry._id, entry: entry });
-					});
-				}
-	
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(_Header2.default, null),
-					_react2.default.createElement(
-						'h2',
-						null,
-						'Entries'
-					),
-					entryList
-				);
-			}
-		}]);
-	
-		return Entries;
-	}(_react.Component);
-	
-	var stateToProps = function stateToProps(state) {
-		return {
-			entries: state.entriesReducer.entries
-		};
-	};
-	
-	exports.default = (0, _reactRedux.connect)(stateToProps)(Entries);
-
-/***/ },
-/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	(function webpackUniversalModuleDefinition(root, factory) {
@@ -31782,6 +31665,123 @@
 	});
 	;
 	//# sourceMappingURL=index.js.map
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _EntryPreview = __webpack_require__(278);
+	
+	var _EntryPreview2 = _interopRequireDefault(_EntryPreview);
+	
+	var _APIManager = __webpack_require__(237);
+	
+	var _APIManager2 = _interopRequireDefault(_APIManager);
+	
+	var _store = __webpack_require__(243);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _actions = __webpack_require__(262);
+	
+	var _actions2 = _interopRequireDefault(_actions);
+	
+	var _reactRedux = __webpack_require__(263);
+	
+	var _Header = __webpack_require__(276);
+	
+	var _Header2 = _interopRequireDefault(_Header);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Entries = function (_Component) {
+		_inherits(Entries, _Component);
+	
+		function Entries(props, context) {
+			_classCallCheck(this, Entries);
+	
+			var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(Entries).call(this, props, context));
+	
+			_this2.state = {};
+			return _this2;
+		}
+	
+		_createClass(Entries, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				//		console.log('Component Did Mount: '+JSON.stringify(this.props.entries))
+				// if (this.props.entries.length > 0) // already there
+				// 	return
+	
+				var entryArray = this.props.entries[this.props.params.phone];
+				if (entryArray != null) {
+					// already there
+					return;
+				}
+	
+				var _this = this;
+				_APIManager2.default.handleGet('/api/entry', { phone: this.props.params.phone }, function (err, response) {
+					if (err) {
+						alert(err);
+						return;
+					}
+	
+					_store2.default.currentStore().dispatch(_actions2.default.entriesReceived(response.results));
+				});
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var entryArray = this.props.entries[this.props.params.phone];
+				var entryList = null;
+				if (entryArray != null) {
+					entryList = entryArray.map(function (entry, i) {
+						return _react2.default.createElement(_EntryPreview2.default, { key: entry._id, entry: entry });
+					});
+				}
+	
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(_Header2.default, null),
+					_react2.default.createElement(
+						'h2',
+						null,
+						'Entries'
+					),
+					entryList
+				);
+			}
+		}]);
+	
+		return Entries;
+	}(_react.Component);
+	
+	var stateToProps = function stateToProps(state) {
+		return {
+			entries: state.entriesReducer.entries
+		};
+	};
+	
+	exports.default = (0, _reactRedux.connect)(stateToProps)(Entries);
 
 /***/ }
 /******/ ]);
